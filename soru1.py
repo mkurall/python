@@ -4,6 +4,9 @@
 #2-Yeni Ekle
 #3-Sil
 #4-Çıkış
+import os
+import json
+
 RED = "\033[31m"
 GREEN = "\033[32m"
 BLUE = "\033[34m"
@@ -11,16 +14,30 @@ DEFAULT = "\033[0m"
 
 veriler = {} #boş sözlük
 
+def yukle():
+    global veriler
+    if os.path.exists("rehber.txt"):
+        print("dosya bulundu...")
+        dosya = open("rehber.txt","r")
+        icerik = dosya.read()
+        veriler = json.loads(icerik)
+        dosya.close()
+    else:
+        print("dosya yok!")
+def kaydet():
+    global veriler
+    dosya = open("rehber.txt", "w")
+    icerik = json.dumps(veriler)
+    dosya.write(icerik)
+    dosya.close()
 def bekle():
     input(f"{GREEN}Devam etmek için <<Enter>> tuşunan basın.{DEFAULT}")
-
 def menu_goster():
     print(f"{RED}----MENU-----{DEFAULT}")
     print(f"{BLUE}1-Listele")
     print(f"2-Yeni Ekle")
     print(f"3-Sil")
     print(f"4-Çıkış{DEFAULT}")
-
 def secim_yap():
     while True:
         secim = int(input("Seçiminizi yapın:"))
@@ -28,7 +45,6 @@ def secim_yap():
             print("Hatalı secim!")
             continue
         return secim
-
 def listele():
     print("LİSTELENİYOR.........")
     for (tel, ad) in veriler.items():
@@ -52,6 +68,7 @@ def sil():
         print("Bu numara bulunamadı!")
     bekle()
 #ana Program Döngüsü
+yukle()
 while True:
     menu_goster()
     secilen = secim_yap()
@@ -66,4 +83,4 @@ while True:
     else:
         print("Çıkış Yapılıyor...")
         break
-
+kaydet()
