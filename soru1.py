@@ -9,7 +9,7 @@ GREEN = "\033[32m"
 BLUE = "\033[34m"
 DEFAULT = "\033[0m" 
 
-veriler = {{"Tel":"05054541111", "AdSoyad": "Mustafa KURAL"}}
+veriler = {} #boş sözlük
 
 def bekle():
     input(f"{GREEN}Devam etmek için <<Enter>> tuşunan basın.{DEFAULT}")
@@ -31,15 +31,25 @@ def secim_yap():
 
 def listele():
     print("LİSTELENİYOR.........")
-    #######
+    for (tel, ad) in veriler.items():
+        print(f"Tel: {tel} Ad Soyad: {ad}")
     bekle()
 def yeni_ekle():
     print("YENİ KAYIT EKLENİYOR......")
-    #######
+    tel = input("Eklemek istediğiniz telefon numarası:")
+    if tel in veriler:
+        print("Zaten bu numara eklenmiş!")
+    else:
+        ad = input("Eklemek istediğiniz isim:")
+        veriler[tel] = ad
     bekle()
 def sil():
     print("SİLİNİYOR.......:.")
-    ######
+    tel = input("Silmek istediğiniz telefon numarası:")
+    if tel in veriler:
+        veriler.pop(tel)
+    else:
+        print("Bu numara bulunamadı!")
     bekle()
 #ana Program Döngüsü
 while True:
