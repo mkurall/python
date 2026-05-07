@@ -1,0 +1,4 @@
+import fonk
+
+fonk.selamla()
+
